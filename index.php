@@ -13,8 +13,8 @@ $f3->set('Debug',3);
 
 //Define a default route (home page)
 $f3->route('GET /', function(){
-    echo 'recipe home page';
+    $view = new Template();
+    echo $view->render('views/home.html');
 });
-
 //Run fat free
 $f3->run();
