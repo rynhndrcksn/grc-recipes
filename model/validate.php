@@ -47,6 +47,16 @@ class Validate
 	}
 
 	/**
+	 * validates the password to ensure there's at least 1 capital, 1 lower, 1 number, and 1 special character
+	 * @param $password - password to be validated
+	 * @return bool - true if password meets requirements, false otherwise
+	 */
+	function validPassword($password): bool
+	{
+		return preg_match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,64}$', $password);
+	}
+
+	/**
 	 * takes a parameter, strips any white spaces, strips \\'s and //'s, and converts any HTML to it's ASCII code.
 	 * is used on its own, but also acts as a helper function
 	 * @param $data
