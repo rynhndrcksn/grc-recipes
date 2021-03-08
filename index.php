@@ -1,29 +1,44 @@
 <?php
+/*
+ * @author: Patrick Dang & Ryan Hendrickson
+ * @version: https://github.com/rynhndrcksn/grc-recipes
+ * index.php contains the routes/startup info for our F3 MVC
+ */
 
-// Turn on error reporting
+// error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-//Require the auto autoload file
+// required files
 require_once('vendor/autoload.php');
+// DB login info for PDO
+require $_SERVER['DOCUMENT_ROOT'] . "/../includes/config.php";
 
-//Create an instance of the Base class
+// start our session
+session_start();
+
+// instantiate classes
 $f3 = Base::instance();
+//$dataLayer = new DataLayer($dbh); // $dbh is from the config.php we required ^
+//$validator = new Validate($dataLayer);
+//$controller = new Controller($f3);
+
+// F3 debugging
 $f3->set('Debug',3);
 
-//Define a default route (home page)
+// route to homepage
 $f3->route('GET /', function(){
     $view = new Template();
     echo $view->render('views/home.html');
 });
 
-//Define a signup route
+// route to sign up page
 $f3->route('GET /signup', function(){
     $view = new Template();
     echo $view->render('views/signup.html');
 });
 
-//Define a login route
+// route to login page
 $f3->route('GET /login', function(){
     $view = new Template();
     echo $view->render('views/login.html');
