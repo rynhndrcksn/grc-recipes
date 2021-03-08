@@ -19,17 +19,16 @@ session_start();
 
 // instantiate classes
 $f3 = Base::instance();
-//$dataLayer = new DataLayer($dbh); // $dbh is from the config.php we required ^
-//$validator = new Validate($dataLayer);
-//$controller = new Controller($f3);
+$dataLayer = new DataLayer($dbh); // $dbh is from the config.php we required ^
+$validator = new Validate($dataLayer);
+$controller = new Controller($f3);
 
 // F3 debugging
 $f3->set('Debug',3);
 
 // route to homepage
-$f3->route('GET /', function(){
-    $view = new Template();
-    echo $view->render('views/home.html');
+$f3->route('GET /', function() use ($controller) {
+	$controller->home();
 });
 
 // route to sign up page

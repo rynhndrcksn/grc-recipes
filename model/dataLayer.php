@@ -13,7 +13,7 @@ class DataLayer
 	// fields
 	private $_dbh;
 
-	function __construct($dbh) {
+	function __construct($dbh=null) {
 		$this->_dbh = $dbh;
 	}
 
