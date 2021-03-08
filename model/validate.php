@@ -23,7 +23,8 @@ class Validate
 	 */
 	function validName($name): bool
 	{
-		return !empty($this->prep_input($name)) && ctype_alpha($this->prep_input($name));
+		return !empty($this->prep_input($name)) && ctype_alpha($this->prep_input($name)) &&
+			strlen($this->prep_input($name)) < 21;
 	}
 
 	/**
@@ -33,7 +34,7 @@ class Validate
 	 */
 	function validEmail($email): bool
 	{
-		return filter_var($email, FILTER_VALIDATE_EMAIL);
+		return filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($this->prep_input($email)) < 51;
 	}
 
 	/**
@@ -43,7 +44,7 @@ class Validate
 	 */
 	function validUsername($username): bool
 	{
-		return ctype_alnum($this->prep_input($username));
+		return ctype_alnum($this->prep_input($username)) && strlen($this->prep_input($username)) < 21;
 	}
 
 	/**
@@ -53,7 +54,7 @@ class Validate
 	 */
 	function validPassword($password): bool
 	{
-		return preg_match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,64}$', $password);
+		return preg_match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,64}$', $password);
 	}
 
 	/**
