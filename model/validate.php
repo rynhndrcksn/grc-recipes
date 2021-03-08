@@ -18,12 +18,32 @@ class Validate
 
 	/**
 	 * returns true if not empty and contains only letters
-	 * @param $food
-	 * @return bool
+	 * @param $name - name being passed into the first name/last name inputs on the signup page
+	 * @return bool - true if it's a valid name, false otherwise
 	 */
-	function validFood($food): bool
+	function validName($name): bool
 	{
-		return !empty($this->prep_input($food)) && ctype_alpha($this->prep_input($food));
+		return !empty($this->prep_input($name)) && ctype_alpha($this->prep_input($name));
+	}
+
+	/**
+	 * returns true if we get a valid email
+	 * @param $email - email to validate
+	 * @return bool - true if valid email, false otherwise
+	 */
+	function validEmail($email): bool
+	{
+		return filter_var($email, FILTER_VALIDATE_EMAIL);
+	}
+
+	/**
+	 * returns true if we have a valid username
+	 * @param $username - username to be validated
+	 * @return bool - true if username is valid, false otherwise
+	 */
+	function validUsername($username): bool
+	{
+		return ctype_alnum($this->prep_input($username));
 	}
 
 	/**
