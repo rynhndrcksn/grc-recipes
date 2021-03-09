@@ -28,19 +28,17 @@ $f3->set('Debug',3);
 
 // route to homepage
 $f3->route('GET /', function() use ($controller) {
-	$controller->home();
+		$controller->home();
 });
 
 // route to sign up page
-$f3->route('GET /signup', function(){
-    $view = new Template();
-    echo $view->render('views/signup.html');
+$f3->route('GET|POST /signup', function() use ($controller) {
+    $controller->signup();
 });
 
 // route to login page
-$f3->route('GET /login', function(){
-    $view = new Template();
-    echo $view->render('views/login.html');
+$f3->route('GET|POST /login', function() use ($controller) {
+		$controller->login();
 });
 
 //Run fat free

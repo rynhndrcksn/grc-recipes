@@ -30,4 +30,19 @@ class Controller
 		echo $view->render('views/home.html');
 	}
 
+	/**
+	 * displays signup.html
+	 */
+	function signup()
+	{
+		$view = new Template();
+		echo $view->render('views/signup.html');
+	}
+
+	function login()
+	{
+		$view = new Template();
+		echo $view->render('views/login.html');
+	}
+
 }
