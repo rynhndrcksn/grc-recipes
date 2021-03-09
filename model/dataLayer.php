@@ -18,10 +18,14 @@ class DataLayer
 	}
 
 	/**
-	 * takes an User object and saves the user to the database
-	 * @param $user - User/Admin object
+	 * takes the users info and saves it into the DB
+	 * @param $first - user's first name
+	 * @param $last - user's last name
+	 * @param $email - user's email
+	 * @param $username - user's username
+	 * @param $password - user's password
 	 */
-	function saveUser($user)
+	function saveUser($first, $last, $email, $username, $password)
 	{
 		// define the query
 		$sql = 'INSERT INTO users(first, last, email, username, password) VALUES (:first, :last, :email, :username, :password)';
@@ -30,11 +34,11 @@ class DataLayer
 		$statement = $this->_dbh->prepare($sql);
 
 		// bind the parameters
-		$statement->bindParam(':first', strtolower($user->getFirst()), PDO::PARAM_STR);
-		$statement->bindParam(':last', strtolower($user->getLast()), PDO::PARAM_STR);
-		$statement->bindParam(':email', strtolower($user->getEmail()), PDO::PARAM_STR);
-		$statement->bindParam(':username', strtolower($user->getUsername()), PDO::PARAM_STR);
-		$statement->bindParam(':password', password_hash($user->getPassword(), PASSWORD_DEFAULT), PDO::PARAM_STR);
+		$statement->bindParam(':first', strtolower($first), PDO::PARAM_STR);
+		$statement->bindParam(':last', strtolower($last), PDO::PARAM_STR);
+		$statement->bindParam(':email', strtolower($email), PDO::PARAM_STR);
+		$statement->bindParam(':username', strtolower($username), PDO::PARAM_STR);
+		$statement->bindParam(':password', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
 
 		// execute
 		$statement->execute();
