@@ -35,6 +35,55 @@ class Controller
 	 */
 	function signup()
 	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+			// gather user submitted info
+			$userFirst = trim($_POST['fname']);
+			$userLast = trim($_POST['lname']);
+			$userEmail = trim($_POST['email']);
+			$userUsername = trim($_POST['username']);
+			$userPassword = trim($_POST['password']);
+
+			// validate first name
+			if (!$this->_validator->validName($userFirst)) {
+				$this->_f3->set('errors["fname"]', 'Not a valid first name');
+			}
+
+			// validate last name
+			if (!$this->_validator->validName($userLast)) {
+				$this->_f3->set('errors["lname"]', 'Not a valid last name');
+			}
+
+			// validate email
+			if (!$this->_validator->validEmail($userEmail)) {
+				$this->_f3->set('errors["email"]', 'Not a valid email');
+			}
+
+			// validate username
+			if (!$this->_validator->validUsername($userUsername)) {
+				$this->_f3->set('errors["username"]', 'Not a valid username');
+			}
+
+			// validate password
+			if (!$this->_validator->validPassword($userPassword)) {
+				$this->_f3->set('errors["password"]', 'Not a valid password');
+			}
+
+			// if there are no errors, create + store our User object in the DB
+			if (empty($this->_f3->get('errors'))) {
+				// save the user's info into the DB
+				//$this->_dataLayer->saveUser($userFirst, $userLast, $userEmail, $userUsername, $userPassword);
+
+				// for now reroute to the home page??
+				$this->_f3->reroute('/');
+			}
+		}
+
+		$this->_f3->set('userFirst', isset($userFirst) ? $userFirst : "");
+		$this->_f3->set('userLast', isset($userLast) ? $userLast : "");
+		$this->_f3->set('userEmail', isset($userEmail) ? $userEmail : "");
+		$this->_f3->set('userUsername', isset($userUsername) ? $userUsername : "");
+
 		$view = new Template();
 		echo $view->render('views/signup.html');
 	}
