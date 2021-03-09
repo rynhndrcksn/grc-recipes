@@ -18,25 +18,26 @@ class DataLayer
 	}
 
 	/**
-	 * takes an Order object and saves the order to the database
+	 * takes an User object and saves the user to the database
 	 * @param $user - User/Admin object
 	 */
 	function saveUser($user)
 	{
 		// define the query
-		$sql = 'INSERT INTO orders(food, meal, condiments) VALUES (:food, :meal, :condiments)';
+		$sql = 'INSERT INTO users(first, last, email, username, password) VALUES (:first, :last, :email, :username, :password)';
 
 		// prepare the statement
 		$statement = $this->_dbh->prepare($sql);
 
 		// bind the parameters
-		$statement->bindParam(':food', strtolower($order->getFood()), PDO::PARAM_STR);
-		$statement->bindParam(':meal', strtolower($order->getMeal()), PDO::PARAM_STR);
-		$statement->bindParam(':condiments', strtolower($order->getCondiments()), PDO::PARAM_STR);
+		$statement->bindParam(':first', strtolower($user->getFirst()), PDO::PARAM_STR);
+		$statement->bindParam(':last', strtolower($user->getLast()), PDO::PARAM_STR);
+		$statement->bindParam(':email', strtolower($user->getEmail()), PDO::PARAM_STR);
+		$statement->bindParam(':username', strtolower($user->getUsername()), PDO::PARAM_STR);
+		$statement->bindParam(':password', password_hash($user->getPassword(), PASSWORD_DEFAULT), PDO::PARAM_STR);
 
 		// execute
 		$statement->execute();
-		$id = $this->_dbh->lastInsertId();
 	}
 
 }
